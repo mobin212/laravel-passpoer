@@ -14,9 +14,11 @@ class AuthController extends Controller
 {
     public function Login(Request $request){
         
+        
         try{
-            if(Auth::attempt($request->only('email','passaword'))) 
+            if(Auth::attempt($request->only('email','password'))) 
             {
+                // return '4';
                 $user = Auth::user();
                 $token = $user-> createToken('app')->accessToken;
 
