@@ -5,6 +5,7 @@ import Home from '../components/Home';
 import Login from '../components/Login';
 import Register from '../components/Register';
 import Forget from '../components/Forget';
+import Profile from '../components/Profile';
 
 
 const Header = () => {
@@ -21,6 +22,7 @@ const Header = () => {
           <Route  path="/login" element={<Login />} />
           <Route  path="/forget" element={<Forget />} />
           <Route  path="/register" element={<Register />}/>
+          <Route  path="/profile" element={<Profile />}/>
         </Routes>
       
     </div>
