@@ -1,8 +1,27 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import {BrowserRouter as Router,Route,Link} from "react-router-dom";
 
 
-const Navb = () => {
+const Navb = (props) => {
+  const [mt, setMt] = useState(true)
+
+  
+  
+
+const logout = () =>{
+  // localStorage.clear()
+  localStorage.removeItem('token')
+  setMt(true)
+  // window.location='/login'
+}
+
+useEffect(()=>{
+  if(localStorage.getItem('token')){
+    setMt(false)
+  }else{setMt(true)}
+},[localStorage.getItem('token')])
+  
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-dark">
@@ -17,12 +36,14 @@ const Navb = () => {
           <Link className="nav-link text-light" to="/profile">Profile</Link>
         </li>
       </ul>
-      <span className="navbar-text ms-4 text-light">
+      {mt ? <><span className="navbar-text ms-4 text-light">
         <Link to="/register" className='text-light'>Register</Link>
       </span>
       <span className="navbar-text ms-4 text-light">
         <Link to="/login" className='text-light'>Login</Link>
-      </span>
+      </span></> : <span onClick={logout} className="navbar-text ms-4 text-light">
+        <Link to="/login" className='text-light'>Logout</Link>
+      </span> }
     </div>
   </div>
 </nav>

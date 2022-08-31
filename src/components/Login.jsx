@@ -1,6 +1,6 @@
 import axios from 'axios';
 import React, {useState} from 'react'
-import {Link} from "react-router-dom";
+import {Link, Navigate } from "react-router-dom";
 import {instance} from '../axios'
 
 
@@ -9,7 +9,8 @@ const Login = () => {
   let resinit = {
     email:'',
     password:'',
-    message:''
+    message:'',
+    loggedIn:false
   }
   const [res, setRes] = useState(resinit);
   const data = {
@@ -21,12 +22,18 @@ const Login = () => {
     e.preventDefault()
     try {
       const resp = await axios.post(`http://localhost:8000/api/login`,data);
-      console.log(resp);
+      localStorage.setItem('token',resp.data.token);
+      setRes({...res,loggedIn:true})
   } catch (err) {
       // Handle Error Here
       console.error(err);
   }
     
+  }
+  // console.log(loggedIn);
+
+  if(res.loggedIn){
+    window.location='/profile'
   }
 
 
