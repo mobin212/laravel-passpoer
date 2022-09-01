@@ -1,6 +1,7 @@
 import axios from 'axios';
-import React, {useState} from 'react'
-import {Link, Navigate } from "react-router-dom";
+import React, {useState,useEffect} from 'react'
+import {Link, Navigate,useNavigate } from "react-router-dom";
+
 import {instance} from '../axios'
 
 
@@ -24,16 +25,26 @@ const Login = () => {
       const resp = await axios.post(`http://localhost:8000/api/login`,data);
       localStorage.setItem('token',resp.data.token);
       setRes({...res,loggedIn:true})
+      console.log(res.loggedIn)
   } catch (err) {
       // Handle Error Here
       console.error(err);
+      setRes({message:err.response.data.message})
+
   }
-    
   }
-  // console.log(loggedIn);
+
+// let navigate = useNavigate();
+
+// useEffect(() => {
+//    if (res.loggedIn){
+//       return navigate("/profile");
+//    }
+// },[res.loggedIn]);
 
   if(res.loggedIn){
     window.location='/profile'
+  
   }
 
 
@@ -41,6 +52,7 @@ const Login = () => {
     <div><br /><br />
       <div className='row p-2'>
         <div className="jumbotron p-2  col-lg-4 offset-lg-4">
+          <div>{res.message}</div>
             <h3 className='text-center'>Login Account</h3>
             <form onSubmit={formSubmit}>
                 <div className="form-group p-2">

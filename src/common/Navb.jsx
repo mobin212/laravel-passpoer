@@ -19,7 +19,7 @@ useEffect(()=>{
   if(localStorage.getItem('token')){
     setMt(false)
   }else{setMt(true)}
-},[localStorage.getItem('token')])
+},[])
   
 
   return (
